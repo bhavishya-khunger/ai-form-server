@@ -4,7 +4,7 @@ const formSchema = new mongoose.Schema({
   title: {type: String, required: true},
   fields: [Object],
   description: String,
-  isEditable: {type: Boolean, default: false},
+  isEditable: {type: Boolean, default: true},
   accepting: {type: Boolean, default: false},
   authReq : {type: Boolean, default: false},
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

@@ -130,7 +130,7 @@ export const toggleForm = async (req, res) => {
     if (!form) {
       return res.status(404).json({ error: 'Form not found or unauthorized' });
     }
-    if (form.isEditable === true) return res.status(404);
+    if (form.isEditable) return res.status(404).json({error: 'Cannot be turned on until the form is not published.'});
     const pvs = form.accepting;
     form.accepting = !pvs;
     await form.save();

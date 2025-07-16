@@ -9,8 +9,13 @@ import respRoutes from './routes/resp.routes.js';
 
 dotenv.config();
 
+const corsOptions = {
+  origin: 'https://ai-form-gen-pink.vercel.app/',
+  credentials: true,
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

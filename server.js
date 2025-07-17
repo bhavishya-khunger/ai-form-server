@@ -9,27 +9,28 @@ import respRoutes from './routes/resp.routes.js';
 
 dotenv.config();
 
-const corsOptions = {
-  origin: 'https://ai-form-gen-pink.vercel.app/',
-  credentials: true,
-};
-
 const app = express();
 app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.json());
 
 // Routes
 app.use('/api/forms', formRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/resp', respRoutes);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || '5000';
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch((err) => console.error(err));
+// Function to connect to MongoDB and start the server
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("Database Connected");
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+connectDB();
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

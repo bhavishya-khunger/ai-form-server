@@ -48,6 +48,10 @@ export const submitForm = async (req, res) => {
       return res.status(404).json({ error: 'Form not found' });
     }
 
+    if (!form.accepting) {
+      return res.status(404).json({error: "No Longer Accepting Responses.", code: "NAR"})
+    }
+
     // Check for auth if required
     if (form.authReq) {
       const token = req.header('Authorization').replace('Bearer ', '');
